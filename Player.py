@@ -1,4 +1,5 @@
 import random
+import Dragon
 class Player():
     def __init__(self, name,wins=0,health=500,moves = [], damage = {}, max_damage = 0):
         Possible_Moves = ["Punch", "Sword Slice", "Knife Swing", "Earthquake","Hypnosis","Electric Bolt","Nuclear Hit", "Lightsaber Stab"]
@@ -10,6 +11,7 @@ class Player():
         self.damage = {}
         self.max_damage = 0
         self.name = name
+        
         for i in range(2):
             choice = random.choice(Possible_Moves)
             self.moves.append(choice)
