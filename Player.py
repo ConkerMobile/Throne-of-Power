@@ -1,6 +1,6 @@
 import random
 class Player():
-    def __init__(self, name):
+    def __init__(self, name,wins=0,health=500,moves = [], damage = {}, max_damage = 0):
         Possible_Moves = ["Punch", "Sword Slice", "Knife Swing", "Earthquake","Hypnosis","Electric Bolt","Nuclear Hit", "Lightsaber Stab"]
         Move_damage = {"Punch":70, "Sword Slice":80, "Knife Swing": 100, "Earthquake":150,"Hypnosis":200,"Electric Bolt":170,"Nuclear Hit": 180, "Lightsaber Stab": 200}
         self.wins = 0
