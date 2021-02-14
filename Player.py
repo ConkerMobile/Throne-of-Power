@@ -37,7 +37,42 @@ class Player():
             for i in self.moves:
                 self.damage[i]+=50
             self.max_damage +=100
+    def complete_maze(self):
+        choice = str(input("Would you like a new dragon or upgrade on attacks: "))
+        if choice.lower() == 'new dragon':
+            name = str(input('What name would you like your dragon to have: '))
+            power = str(input('What power do you want for your dragon: '))
+            self.dragons.append(Dragon(name, power))
+        elif choice.lower() == 'upgrade':
+            upgrade = str(input(f'Which move would you like to upgrade [{self.moves}]: '))
+            if upgrade in self.moves:
+                self.damage[upgrade]+=20
+                self.max_damage+=20
+            else:
+                print("Move not found (This is case sensitive).")
+
+
 class Dragon(Player):
     def __init__(self, name, power):
-        Possible_Powers = ['Electric', 'Ice', 'Fire', 'Terra', 'Legend', 'Wind', 'Dark', 'Sea']
-        
+        Possible_Powers = ['Electric', 'Ice', 'Fire', 'Terra', 'Wind', 'Dark', 'Sea']
+        Possible_Moves = {'Electric': ['Electric Bolt', 'Thunder Storm', 'Lightning Strike', 'Death from Above'],
+                         'Ice': ['Frozen Wave', 'Frost Nova', 'Blizzard Storm', 'Snow Swords'],
+                         'Fire': ['Embers', 'Flaming Hit', 'Meteor Shower', 'Raging WildFire'],
+                         'Terra': ['Earthquake', 'Rock Strike', 'Asteroid Hit', 'Mud Splat'],
+                         'Wind':['WhirlWind', 'Tornado', 'Foggy Mist', 'Wind Shift'],
+                         'Dark':['Stealth Blast', 'Night Vision', 'Darksaber Stab', 'Night Blades'],
+                         'Sea': ['WhirlPool', 'Tsunami', 'Sea Volcano', 'Ocean Blast']}
+        Move_damage = {'Electric Bolt': 170, 'Thunder Storm': 170, 'Lightning Strike': 160, 'Death from Above':180,
+        'Frozen Wave': 150, 'Frost Nova': 170, 'Blizzard Storm': 160, 'Snow Swords': 180,
+        'Embers': 130, 'Flaming Hit': 150, 'Meteor Shower': 170, 'Raging WildFire': 180,
+        'Earthquake': 160, 'Rock Strike': 150, 'Asteroid Hit': 180, 'Mud Splat': 130,
+        'WhirlWind': 160, 'Tornado': 180, 'Foggy Mist': 140, 'Wind Shift': 170,
+        'Stealth Blast': 170, 'Night Vision': 160, 'Darksaber Stab': 200, 'Night Blades': 180,
+        'WhirlPool': 160, 'Tsunami': 180, 'Sea Volcano': 200, 'Ocean Blast': 170
+        }
+        if power in Possible_Powers:
+            for i in range(2):
+                choice = random.choice(Possible_Moves[power])
+                self.moves.append(choice)
+                self.max_damage+=Move_damage[choice]
+                self.damage[choice] = Move_damage[choice]
