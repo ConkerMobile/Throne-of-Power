@@ -11,7 +11,7 @@ class Player():
         self.damage = {}
         self.max_damage = 0
         self.name = name
-        
+        self.dragons = []
         for i in range(2):
             choice = random.choice(Possible_Moves)
             self.moves.append(choice)
@@ -37,3 +37,7 @@ class Player():
             for i in self.moves:
                 self.damage[i]+=50
             self.max_damage +=100
+class Dragon(Player):
+    def __init__(self, name, power):
+        Possible_Powers = ['Electric', 'Ice', 'Fire', 'Terra', 'Legend', 'Wind', 'Dark', 'Sea']
+        
