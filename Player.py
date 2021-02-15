@@ -1,17 +1,16 @@
 import random
-import Dragon
 class Player():
-    def __init__(self, name,wins=0,health=500,moves = [], damage = {}, max_damage = 0):
+    def __init__(self, name,wins=0,health=500,moves = [], damage = {}, max_damage = 0,dragons=[]):
         Possible_Moves = ["Punch", "Sword Slice", "Knife Swing", "Earthquake","Hypnosis","Electric Bolt","Nuclear Hit", "Lightsaber Stab"]
         Move_damage = {"Punch":70, "Sword Slice":80, "Knife Swing": 100, "Earthquake":150,"Hypnosis":200,"Electric Bolt":170,"Nuclear Hit": 180, "Lightsaber Stab": 200}
-        self.wins = 0
-        self.health = 500
+        self.wins = wins
+        self.health = health
         self.battle_health = self.health
-        self.moves = []
-        self.damage = {}
-        self.max_damage = 0
+        self.moves = moves
+        self.damage = damage
+        self.max_damage = max_damage
         self.name = name
-        self.dragons = []
+        self.dragons = dragons
         for i in range(2):
             choice = random.choice(Possible_Moves)
             self.moves.append(choice)
@@ -52,7 +51,7 @@ class Player():
                 print("Move not found (This is case sensitive).")
 
 
-class Dragon(Player):
+class Dragon():
     def __init__(self, name, power):
         Possible_Powers = ['Electric', 'Ice', 'Fire', 'Terra', 'Wind', 'Dark', 'Sea']
         Possible_Moves = {'Electric': ['Electric Bolt', 'Thunder Storm', 'Lightning Strike', 'Death from Above'],
@@ -70,9 +69,24 @@ class Dragon(Player):
         'Stealth Blast': 170, 'Night Vision': 160, 'Darksaber Stab': 200, 'Night Blades': 180,
         'WhirlPool': 160, 'Tsunami': 180, 'Sea Volcano': 200, 'Ocean Blast': 170
         }
+        self.moves = []
+        self.max_damage = 0
+        self.damage = {}
+        self.name = name
+        self.health = 500
+        self.battle_health = self.health
+
         if power in Possible_Powers:
             for i in range(2):
                 choice = random.choice(Possible_Moves[power])
                 self.moves.append(choice)
                 self.max_damage+=Move_damage[choice]
                 self.damage[choice] = Move_damage[choice]
+    def __str__(self):
+        return (f'{self.name}: {self.damage}')
+    def upgrade(self):
+        """Upgrades health and damage to dragon"""
+        self.health += 100
+        for i in self.moves:
+            self.damage[i]+=50
+            self.max_damage +=100
