@@ -1,6 +1,6 @@
 import random
 class Player():
-    def __init__(self, name,wins=0,health=500,moves = [], damage = {}, max_damage = 0,dragons=[]):
+    def __init__(self, name,wins=0,health=500,moves = [], damage = {}, max_damage = 0):
         Possible_Moves = ["Punch", "Sword Slice", "Knife Swing", "Earthquake","Hypnosis","Electric Bolt","Nuclear Hit", "Lightsaber Stab"]
         Move_damage = {"Punch":70, "Sword Slice":80, "Knife Swing": 100, "Earthquake":150,"Hypnosis":200,"Electric Bolt":170,"Nuclear Hit": 180, "Lightsaber Stab": 200}
         self.wins = wins
@@ -10,12 +10,13 @@ class Player():
         self.damage = damage
         self.max_damage = max_damage
         self.name = name
-        self.dragons = dragons
-        for i in range(2):
-            choice = random.choice(Possible_Moves)
-            self.moves.append(choice)
-            self.max_damage+=Move_damage[choice]
-            self.damage[choice] = Move_damage[choice]
+        self.dragons = []
+        if not moves:
+            choice = random.sample(Possible_Moves,2)
+            for i in range(2):
+                self.moves.append(choice[i])
+                self.max_damage+=Move_damage[choice[i]]
+                self.damage[choice[i]] = Move_damage[choice[i]]
     def upgrade(self):
         upgraded = False
         """Upgrades health and damage when you have a certain amount of wins"""
@@ -69,6 +70,7 @@ class Dragon():
         'Stealth Blast': 170, 'Night Vision': 160, 'Darksaber Stab': 200, 'Night Blades': 180,
         'WhirlPool': 160, 'Tsunami': 180, 'Sea Volcano': 200, 'Ocean Blast': 170
         }
+        self.wins = 0
         self.moves = []
         self.max_damage = 0
         self.damage = {}
@@ -77,16 +79,18 @@ class Dragon():
         self.battle_health = self.health
 
         if power in Possible_Powers:
+            choice = random.sample(Possible_Moves[power],2)
             for i in range(2):
-                choice = random.choice(Possible_Moves[power])
-                self.moves.append(choice)
-                self.max_damage+=Move_damage[choice]
-                self.damage[choice] = Move_damage[choice]
+                self.moves.append(choice[i])
+                self.max_damage+=Move_damage[choice[i]]
+                self.damage[choice[i]] = Move_damage[choice[i]]
     def __str__(self):
         return (f'{self.name}: {self.damage}')
     def upgrade(self):
         """Upgrades health and damage to dragon"""
         self.health += 100
         for i in self.moves:
-            self.damage[i]+=50
-            self.max_damage +=100
+            self.damage[i]+=30
+            self.max_damage +=60
+    def toPlayer(self):
+        return Player(self.name, self.wins, self.health, self.moves, self.damage, self.max_damage)
