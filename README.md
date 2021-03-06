@@ -1,5 +1,5 @@
-# Throne Of Power 2
+# Throne Of Power 3
 - This is the Official Throne of Power Game
-- 2nd Version is now available
+- 3rd Version is now being constructed.
 
 Enjoy!
