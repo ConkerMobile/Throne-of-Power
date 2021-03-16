@@ -1,8 +1,8 @@
 import random
 class Player():
     def __init__(self, name,wins=0,health=500,moves = [], damage = {}, max_damage = 0):
-        Possible_Moves = ["Punch", "Sword Slice", "Knife Swing", "Earthquake","Hypnosis","Electric Bolt","Nuclear Hit", "Lightsaber Stab"]
-        Move_damage = {"Punch":70, "Sword Slice":80, "Knife Swing": 100, "Earthquake":150,"Hypnosis":200,"Electric Bolt":170,"Nuclear Hit": 180, "Lightsaber Stab": 200}
+        Possible_Moves = ["Punch", "Sword Slice", "Knife Swing", "Earthquake","Hypnosis","Electric Bolt","Nuclear Hit", "Lightsaber Stab", "Super Nova", "Ghost Cloud"]
+        Move_damage = {"Punch":70, "Sword Slice":80, "Knife Swing": 100, "Earthquake":150,"Hypnosis":250,"Electric Bolt":170,"Nuclear Hit": 180, "Lightsaber Stab": 200, "Super Nova": 250, "Ghost Cloud": 230}
         self.wins = wins
         self.health = health
         self.battle_health = self.health
@@ -12,11 +12,13 @@ class Player():
         self.name = name
         self.dragons = []
         if not moves:
-            choice = random.sample(Possible_Moves,2)
-            for i in range(2):
-                self.moves.append(choice[i])
-                self.max_damage+=Move_damage[choice[i]]
-                self.damage[choice[i]] = Move_damage[choice[i]]
+            for _ in range(2):
+                choice = random.choice(Possible_Moves)
+                while choice in moves:
+                    choice = random.choice(Possible_Moves)
+                self.moves.append(choice)
+                self.max_damage+=Move_damage[choice]
+                self.damage[choice] = Move_damage[choice]
     def upgrade(self):
         upgraded = False
         """Upgrades health and damage when you have a certain amount of wins"""
@@ -62,11 +64,11 @@ class Dragon():
                          'Wind':['WhirlWind', 'Tornado', 'Foggy Mist', 'Wind Shift'],
                          'Dark':['Stealth Blast', 'Night Vision', 'Darksaber Stab', 'Night Blades'],
                          'Sea': ['WhirlPool', 'Tsunami', 'Sea Volcano', 'Ocean Blast']}
-        Move_damage = {'Electric Bolt': 170, 'Thunder Storm': 170, 'Lightning Strike': 160, 'Death from Above':180,
-        'Frozen Wave': 150, 'Frost Nova': 170, 'Blizzard Storm': 160, 'Snow Swords': 180,
-        'Embers': 130, 'Flaming Hit': 150, 'Meteor Shower': 170, 'Raging WildFire': 180,
-        'Earthquake': 160, 'Rock Strike': 150, 'Asteroid Hit': 180, 'Mud Splat': 130,
-        'WhirlWind': 160, 'Tornado': 180, 'Foggy Mist': 140, 'Wind Shift': 170,
+        Move_damage = {'Electric Bolt': 170, 'Thunder Storm': 170, 'Lightning Strike': 180, 'Death from Above':180,
+        'Frozen Wave': 150, 'Frost Nova': 170, 'Blizzard Storm': 180, 'Snow Swords': 200,
+        'Embers': 160, 'Flaming Hit': 150, 'Meteor Shower': 170, 'Raging WildFire': 200,
+        'Earthquake': 160, 'Rock Strike': 150, 'Asteroid Hit': 200, 'Mud Splat': 130,
+        'WhirlWind': 160, 'Tornado': 180, 'Foggy Mist': 140, 'Wind Shift': 200,
         'Stealth Blast': 170, 'Night Vision': 160, 'Darksaber Stab': 200, 'Night Blades': 180,
         'WhirlPool': 160, 'Tsunami': 180, 'Sea Volcano': 200, 'Ocean Blast': 170
         }
