@@ -1,5 +1,5 @@
-# Throne Of Power 3
+# Throne Of Power 2
 - This is the Official Throne of Power Game
-- 3rd Version is now being constructed.
+- Try the Throne of Power 3 with [Throne of Darkness](https://github.com/ConkerMobile/Throne-of-Darkness)
 
 Enjoy!
